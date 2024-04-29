@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-from usuarios.forms import LoginForm
+from usuarios.forms import LoginForm, CadastroForm
 
 def login(request):
     context = {
@@ -9,4 +9,7 @@ def login(request):
     return render(request, 'usuarios/login.html', context)
 
 def cadastro(request):
-    return render(request, 'usuarios/cadastro.html')
+    context = {
+        'form': CadastroForm()
+    }
+    return render(request, 'usuarios/cadastro.html', context)
