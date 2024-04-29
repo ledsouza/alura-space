@@ -2,8 +2,13 @@
 {% load static %}
 
 {% block content %}
-<form action="" method="">
+<form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
+    {% if sucesso %}
+    <div class="alert alert-success" role="alert">
+        {{ sucesso }}
+    </div>
+    {% endif %}
     <div class="row">
         {% for field in form.visible_fields %}
         <div class="col-12 col-lg-12" style="margin-bottom: 10px;">

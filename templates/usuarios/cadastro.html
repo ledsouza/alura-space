@@ -2,8 +2,13 @@
 {% load static %}
 
 {% block content %}
-<form action="" method="">
+<form action="{% url 'cadastro' %}" method="POST">
     {% csrf_token %}
+    {% if erro %}
+    <div class="alert alert-danger" role="alert">
+        {{ erro }}
+    </div>
+    {% endif %}
     <div class="row">
         {% for field in form.visible_fields %}
         {% if field.name == 'nome_cadastro' or field.name == 'email' %}
