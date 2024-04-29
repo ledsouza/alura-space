@@ -114,6 +114,7 @@ table {
 
 .busca__icone {
     cursor: pointer;
+    background-color: transparent;
     width: 2rem;
     height: 2rem;
 }
