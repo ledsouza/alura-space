@@ -1,14 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib import auth
+from django.contrib import auth, messages
 
 from usuarios.forms import LoginForm, CadastroForm
 
-def login(request, sucesso=None):
+def login(request):
     form = LoginForm(request.POST or None)
     context = {
-        'form': form,
-        'sucesso': sucesso
+        'form': form
     }
 
     if form.is_valid():
@@ -17,13 +16,19 @@ def login(request, sucesso=None):
         usuario = auth.authenticate(request, username=username, password=password)
 
         if usuario is None:
-            context['erro'] = 'Usuário ou senha inválidos'
-            return render(request, 'usuarios/login.html', context)
+            messages.error(request, 'Usuário ou senha inválidos')
+            return redirect('login')
         else:
             auth.login(request, usuario)
+            messages.success(request, 'Login realizado com sucesso')
             return redirect('index')
 
     return render(request, 'usuarios/login.html', context)
+
+def logout(request):
+    auth.logout(request)
+    messages.success(request, 'Logout realizado com sucesso')
+    return redirect('login')
 
 def cadastro(request):
     form = CadastroForm(request.POST or None)
@@ -33,7 +38,7 @@ def cadastro(request):
 
     if form.is_valid():
         if form.cleaned_data['senha_1'] != form.cleaned_data['senha_2']:
-            context['erro'] = 'As senhas não conferem'
+            messages.error(request, 'Senhas não conferem')
             return redirect('cadastro')
         
         username = form.cleaned_data['nome_cadastro']
@@ -41,11 +46,12 @@ def cadastro(request):
         password = form.cleaned_data['senha_1']
 
         if User.objects.filter(username=username).exists():
-            context['erro'] = 'Nome de usuário já cadastrado'
+            messages.info(request, 'Usuário já cadastrado')
             return redirect('cadastro')
 
         usuario = User.objects.create_user(username, email, password)
         usuario.save()
-        return redirect('login', sucesso='Cadastro realizado com sucesso')
+        messages.success(request, 'Cadastro realizado com sucesso')
+        return redirect('login')
 
     return render(request, 'usuarios/cadastro.html', context)
