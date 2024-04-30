@@ -36,11 +36,7 @@ def cadastro(request):
         'form': form
     }
 
-    if form.is_valid():
-        if form.cleaned_data['senha_1'] != form.cleaned_data['senha_2']:
-            messages.error(request, 'Senhas não conferem')
-            return redirect('cadastro')
-        
+    if form.is_valid():       
         username = form.cleaned_data['nome_cadastro']
         email = form.cleaned_data['email']
         password = form.cleaned_data['senha_1']
