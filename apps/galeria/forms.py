@@ -6,6 +6,15 @@ class FotografiaForms(forms.ModelForm):
     class Meta:
         model = Fotografia
         exclude = ['publicada']
+        labels = {
+            "nome": "Nome",
+            "legenda": "Legenda",
+            "categoria": "Categoria",
+            "descricao": "Descrição",
+            "foto": "Foto",
+            "data_fotografia": "Data de Registro da Fotografia",
+            "usuario": "Usuário"
+        }
 
         widgets = {
             "nome": forms.TextInput(attrs={"class": "form-control"}),
