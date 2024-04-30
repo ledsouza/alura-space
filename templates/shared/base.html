@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    {% include 'usuarios/partials/_head.html' %}
+    {% include 'partials/_head.html' %}
     <body>
         <div class="pagina-inicial">
-            {% include 'usuarios/partials/_header.html' %}
+            {% include 'partials/_header.html' %}
             <main class="principal">
-                {% include 'usuarios/partials/_menu.html' %}
+                {% include 'partials/_menu.html' %}
                 <section class="galeria" style="margin-left: 5em">
                     {% block content %}{% endblock %}
                 </section>
             </main>
         </div>
-    {% include 'galeria/partials/_footer.html' %}
+    {% include 'partials/_footer.html' %}
     </body>
 </html>
