@@ -5,8 +5,13 @@
 <form action="{% url 'login' %}" method="POST">
     {% csrf_token %}
     {% if sucesso %}
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-success" role="alert" style="text-align: center; margin: 0 auto;">
         {{ sucesso }}
+    </div>
+    {% endif %}
+    {% if erro %}
+    <div class="alert alert-danger" role="alert" style="text-align: center; margin: 0 auto;">
+        {{ erro }}
     </div>
     {% endif %}
     <div class="row">
