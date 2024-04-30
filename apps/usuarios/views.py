@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib import auth, messages
 
-from usuarios.forms import LoginForm, CadastroForm
+from apps.usuarios.forms import LoginForm, CadastroForm
 
 def login(request):
     form = LoginForm(request.POST or None)
